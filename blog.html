@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 maximum-scale=1.0 user-scale=no">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Candal&family=Lora&display=swap" rel="stylesheet">
+    <title>Personal Blog Website</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            padding: 0px;
+            margin: 0;
+            background: #f6f6f6;
+            font-family: "Lora", serif;
+        }
+        a {
+            text-decoration: none;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: "Candal", serif;
+            text-align: center;
+            color: #444;
+        }
+        header * {
+            color: white; 
+        }
+        header {
+            background: #008489;
+            height: 66px;
+        }
+        header .logo {
+            float: left;
+            height: inherit;
+            margin-left: 2em;
+        }
+        header .logo-text {
+            margin: 10px;
+            font-family: "Candal", serif;
+        }
+        header .logo-text span {
+            color: rgb(8, 255, 255)
+        }
+        header ul {
+            float: right;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        header ul li {
+            float: left;
+        }
+        header ul li ul {
+            position: absolute;
+            top: 66px;
+            right: 0;
+            width: 180px;
+            display: none;
+        }
+        header ul li:hover ul {
+            display: block;
+        }
+        header ul li ul li {
+            width: 100%;
+        }
+        header ul li ul li a {
+            padding: 10px;
+            color: #444;
+            background: white;
+        }
+        header ul li ul li a.logout {
+            color: red;
+        }
+        header ul li ul li a:hover {
+            background: rgb(219, 217, 217);
+        }
+        header ul li a {
+            padding: 20px;
+            display: block;
+            font-size: 1.1rem;
+            text-decoration: none;
+        }
+        header ul li a:hover {
+            background: #005659;
+            transition: 0.5s;
+        }
+
+        h2 {
+            font-weight:700px;
+            font-size: 2rem;
+            margin-top: 50px;
+            margin-bottom: 20px;
+        }
+
+        h3{
+            margin-top:60px;
+            margin-bottom:0;
+        } 
+        #blog, #portfolio {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: row;
+            padding: 20px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        .blog-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 10px 20px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+        }
+        
+        .blog-box {
+            width: 300px;
+            background-color: #ffffff;
+            border: 2px solid #9d0606;
+            margin: 20px;
+            box-shadow: 0 0 8px rgb(1, 178, 178)
+        }
+        .blog-img {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+        }
+        .blog-img img {
+            width: 100%;
+            height: 100%;
+            padding: 15px;
+            object-fit: cover;
+            object-position: center;
+        }
+        .blog-text {
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+        }
+        .blog-text span {
+            color: #f20707;
+            font-size: 0.9rem;
+        }
+        a i{
+            padding: 0 10px;
+        }
+        .blog-text .blog-title {
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: #272727;
+        }
+        .blog-text p {
+            color: #9b9b9b;
+            font-size: 0.9rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin: 20px 0px;
+        }
+        .blog-text a {
+            color: #0f0f0f;
+        }
+        .blog-text a:hover {
+            color: #f33c3c;
+            font-size: 1.33rem;
+            transition: all ease 0.5s;
+        }
+
+        a.read-more-button {
+            padding: 7px;
+            text-align: center;
+            background-color: #645d5d;
+            border-radius: 30px;
+            color:white;
+        }
+
+        #portfolio-writing,
+        #portfolio-projects,
+        #portfolio-musings {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: row;
+            padding: 20px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .grid-container{
+            display: grid;
+            grid-template-columns: 1fr;
+            gap:60px;
+            max-width:1200px;
+            margin: 20px auto;
+        }
+
+        .featured{
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 70px;
+            align-items:center;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            padding-top:60px;
+            padding-bottom:50px;
+        }
+
+        .featured img{
+        width:400px;
+        border: 4px solid  rgb(50, 50, 50);
+        border-radius: 8px;
+        box-shadow: 0 0 12px rgb(1, 178, 178);
+        }
+
+        .featured .p{
+            font-size: 30px;
+            padding-bottom: 25px;
+        }
+
+        a.see-more{
+            width: 40%;
+            color:white;
+            background-color: #645d5d;
+            padding:10px;
+            border-radius: 40px;
+            display: block;
+            margin: 0 auto; 
+            text-align: center;
+        }
+
+        .contact{
+            min-height: 100vh;
+            padding:50px 150px;
+            text-align: center;
+        }
+
+        .container{
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .contact-wrapper{
+            display: grid;
+            grid-template-columns: repeat(2,1fr) ;
+            grid-gap: 100px;
+        }
+
+        .contact-form{
+            text-align: center;
+        }
+
+        .contact-form h3{
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .form-group{
+            margin-bottom: 20px;
+        }
+
+        input,textarea{
+            width:100%;
+            padding:12px;
+            border-radius: 8px;
+            border:none;
+            background-color: #f8f9fa;
+            box-shadow: 0 0 8px #bbb;
+            color: #333;
+        }
+
+        button{
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #4caf50;
+            color: #fff;
+            border:none;
+            border-radius: 20px;
+        }
+
+        #contact{
+            margin-top:100px;
+        }
+
+        .contact-info{
+            text-align: left;
+            padding: 50px 100px;
+        }
+
+        .contact-info h3{
+            text-align: left;
+            margin-bottom: 20px;
+            color:#333; 
+        }
+
+        .contact-info p{
+            margin-bottom: 10px;
+            color: #555;
+        }
+
+        .contact-info i{
+            color:#008489;
+            margin-right:10px;
+        }
+
+        footer{
+            background-color:#005659;
+        }
+
+        .footer-style{
+        width: 100%;
+        padding: 40px 20px 0;
+        }
+
+        .social-icons{
+            display:flex;
+            justify-content: center;
+        }
+
+        .social-icons a{
+            text-decoration: none;
+            padding:10px;
+            background-color: #fff;
+            margin:15px;
+            border-radius: 50%;
+        }
+
+        .social-icons a i{
+            font-size: 1.5rem;
+            color:#037f83;
+            opacity: 0.9;
+        }
+
+        .social-icons a:hover{
+            background-color: #111;
+            transition: 0.5s;
+        }
+
+        .social-icons a:hover i{
+            color: white;
+            transition:0.5s;
+        }
+
+        .footer-bottom{
+            padding: 20px;
+            text-align: center;
+        }
+
+        .footer-bottom p{
+            color:white;
+        }
+
+        .designer{
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight:700;
+            color:rgba(89, 248, 248, 0.957);
+            margin:0 5px;
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+        <h1 class="logo-text"><span> Blog </span> Buzz</h1>
+        </div>
+        <ul class="nav">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#portfolio">Portfolio</a></li>
+            <li><a href="#about">About me</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="#"><i class="fa fa-user"></i> Login <i class="fa fa-chevron-down" style="font-size: 0.8rem;"></i></a>
+            <ul>
+                <li><a href="#">Sign in/ Sign up</a></li>
+                <li><a class="logout" href="#">Logout</a></li>
+            </ul></li>
+        </ul>
+    </header>    
+
+    <h2 id="h2 home">Featured Posts </h2>
+    <section id="blog">
+        
+        <div class="blog-container">
+            <div class="blog-box">
+                <div class="blog-img">
+                    <img src="./images/img1.jpg" alt="">
+                </div>
+                <div class="blog-text">
+                    <span>18 January, 2024</span>
+                    <b class="blog-title">Sweat It Out Sunday</b>
+                    <p>Dive into the world of High-Intensity Interval Training and discover how to make the most of your workout sessions.</p>
+                    <a href="#">Read more</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="blog-container">
+            <div class="blog-box">
+                <div class="blog-img">
+                    <img src="./images/img2.jpg" alt="">
+                </div>
+                <div class="blog-text">
+                    <span>10 January, 2024</span>
+                    <b class="blog-title">Wanderlust Diaries</b>
+                    <p>Take a virtual journey through the enchanting streets of Bangalore, discovering lesser-known attractions.</p>
+                    <a href="#">Read more</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="blog-container">
+            <div class="blog-box">
+                <div class="blog-img">
+                    <img src="./images/img3.jpg" alt="">
+                </div>
+                <div class="blog-text">
+                    <span>30 December, 2023</span>
+                    <b class="blog-title">Culinary Adventures</b>
+                    <p>Get into the holiday spirit with a collection of delightful and festive baking recipes guaranteed to impress your friends and family.</p>
+                    <a href="#">Read more</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="blog-container">
+            <div class="blog-box">
+                <div class="blog-img">
+                    <img src="./images/img4.jpeg" alt="">
+                </div>
+                <div class="blog-text">
+                    <span>20 December, 2023</span>
+                    <b class="blog-title">Tech Trends Unveiled</b>
+                    <p>Explore the latest advancements in technology, unveiling the future of modern tech industry. Click to learn more.</p>
+                    <a href="#">Read more</a>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <h2 id="h2 portfolio">My Portfolio</h2>
+    <h3 id="h3">My Writings</h3>
+    <section id="portfolio-writing">
+        <div class="blog-container">
+            <div class="blog-box">
+                <div class="blog-img">
+                    <img src="./images/img5.jpg" alt="">
+                </div>
+                <div class="blog-text">
+                    <b class="blog-title">Fiction</b>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur, fugiat?</p>
+                    <a href="#" class="read-more-button">Read more</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="blog-container">
+            <div class="blog-box">
+                <div class="blog-img">
+                    <img src="./images/img6.jpg" alt="">
+                </div>
+                <div class="blog-text">
+                    <b class="blog-title">Non - Fiction</b>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur, fugiat?</p>
+                    <a href="#" class="read-more-button">Read more</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="blog-container">
+            <div class="blog-box">
+                <div class="blog-img">
+                    <img src="./images/img7.jpg" alt="">
+                </div>
+                <div class="blog-text">
+                    <b class="blog-title">Creative Writing</b>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur, fugiat?</p>
+                    <a href="#" class="read-more-button">Read more</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <h3 id="h3">My Projects</h3>
+    <section id="portfolio-projects">
+
+        <div class="blog-container">
+            <div class="blog-box">
+                <div class="blog-img">
+                    <img src="./images/img8.jpeg" alt="">
+                </div>
+                <div class="blog-text">
+                    <b class="blog-title">OOPs Project</b>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur, fugiat?</p>
+                    <a href="#" class="read-more-button">Visit Project</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="blog-container">
+            <div class="blog-box">
+                <div class="blog-img">
+                    <img src="./images/img9.jpg" alt="">
+                </div>
+                <div class="blog-text">
+                    <b class="blog-title">Web-Dev Project</b>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur, fugiat?</p>
+                    <a href="#" class="read-more-button">Visit Project</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="blog-container">
+            <div class="blog-box">
+                <div class="blog-img">
+                    <img src="./images/img10.jpg" alt="">
+                </div>
+                <div class="blog-text">
+                    <b class="blog-title">AI / ML Project</b>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur, fugiat?</p>
+                    <a href="#" class="read-more-button">Visit Project</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <h3 id="h3">My Musings</h3>
+    <section id="portfolio-musings">
+
+        <div class="blog-container">
+            <div class="blog-box">
+                <div class="blog-img">
+                    <img src="./images/img11.jpeg" alt="">
+                </div>
+                <div class="blog-text">
+                    <b class="blog-title">Numb little Bug</b>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur, fugiat?</p>
+                    <a href="#" class="read-more-button">Play Music</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="blog-container">
+            <div class="blog-box">
+                <div class="blog-img">
+                    <img src="./images/img12.jpg" alt="">
+                </div>
+                <div class="blog-text">
+                    <b class="blog-title">A.R Rahman Hits</b>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur, fugiat?</p>
+                    <a href="#" class="read-more-button">Play Music</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="blog-container">
+            <div class="blog-box">
+                <div class="blog-img">
+                    <img src="./images/img13.jpeg" alt="">
+                </div>
+                <div class="blog-text">
+                    <b class="blog-title">Arijit Singh Hits</b>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur, fugiat?</p>
+                    <a href="#" class="read-more-button">Play Music</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <h2 id="h2 about">About Me</h2>
+
+    <main class="grid-container">
+    <article class="featured">
+        <img src="./images/about.jpg" alt="featured img">
+        <div>
+            <h2>Chandan Shekar</h2>
+            <p style="padding-bottom:25px;">Hello! My name is Chandan S , studying Computer Science and Engineering in VIT, Vellore. I'm currently in my second year. I love to write blogs, work on real-world problem solving projects in tech and also have great taste in music. This is one of reasons I started this blog website to share my writings, my projects and my music taste to the rest of the world. I hope you guys will enjoy going through my blogs. Cheers !!!  </p>
+            <a href="#" class="see-more">See More</a>
+        </div>
+    </article>
+    </main>
+
+    
+    <h2 id="h2 contact">Contact Me</h2>
+    <section class="contact">
+        <div class="contact-wrapper">
+            <div class="contact-form">
+                <h3>Give your Feedback</h3>
+                <form action="#">
+                    <div class="form-group">
+                        <input type="text" name="name" placeholder="Your Name">
+                    </div>
+                    <div class="form-group">
+                        <input type="email" name="email" placeholder="Your Email">
+                    </div>
+                    <div class="form-group">
+                        <textarea name="message" placeholder="Your Feedback"></textarea>
+                    </div>
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+        <div class="contact-info">
+            <h3>Contact Information :</h3>
+            <p><i class="fas fa-phone"></i> +91 9902320987</p>
+            <p><i class="fas fa-envelope"></i> chandan.s2022@vitstudent.ac.in</p>
+            <p><i class="fas fa-map-marker-alt"></i> LIC Colony, Basaveshwaranagar, Bangalore</p>
+        </div>
+        </div>
+    </section>
+
+    <footer>
+    <div class="footer-style">
+        <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-github"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+        </div>
+        <div class="footer-bottom">
+            <p>Made by <span class="designer"> Chandan Shekar </span></p>
+        </div>
+    </div>
+    </footer>
+
+</body>
+</html>
